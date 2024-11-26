@@ -1,6 +1,6 @@
 module.exports = {
-  extends: ['expo', 'prettier'],
-  plugin: ['prettier'],
+  extends: ['expo', 'eslint:recommended', 'prettier'],
+  plugins: ['prettier'],
   ignorePatterns: ['/dist/*'],
   rules: {
     'prettier/prettier': 'error',

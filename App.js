@@ -1,12 +1,23 @@
+import { TamaguiProvider, Theme, createTamagui } from '@tamagui/core';
+import { config } from '@tamagui/config/v3';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text } from '@tamagui/core';
+import { StyleSheet } from 'react-native';
+import { Button } from 'tamagui';
+
+const tamaguiConfig = createTamagui(config);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hola, Coder!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TamaguiProvider config={tamaguiConfig}>
+      <Theme name="dark">
+        <View style={styles.container}>
+          <Text>Hola, Coder!</Text>
+          <Button onPress={() => console.log('HOLA')}>BUTTON</Button>
+          <StatusBar style="auto" />
+        </View>
+      </Theme>
+    </TamaguiProvider>
   );
 }
 
