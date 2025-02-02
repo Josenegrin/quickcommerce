@@ -29,7 +29,7 @@ module.exports = function (api) {
         '@tamagui/babel-plugin',
         {
           components: ['tamagui'],
-          config: './src/tamagui/tamagui.config.ts',
+          config: './src/tamagui/tamagui.config.js',
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development',
         },
