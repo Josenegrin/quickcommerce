@@ -40,11 +40,23 @@ To get started with QuickCommerce, follow these steps:
 
 > Note: If using **yarn** as your package manager, ensure that all dependencies are properly installed and avoid mixing **npm** and **yarn** commands.
 
+## Environment Variables
+
+### Firebase Configuration
+
+EXPO_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+EXPO_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+EXPO_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+
 ## Scripts
 
 The `package.json` file includes several useful scripts for development. Here are the most important ones:
 
 - `npm start`: Starts the development server with Expo.
+- `npm start:clear`: Starts the development server with Expo and clears the cache.
 - `npm run android`: Launches the application on an Android emulator.
 - `npm run ios`: Launches the application on an iOS emulator (requires macOS and Xcode).
 - `npm run web`: Launches the application in a web browser.
@@ -59,10 +71,12 @@ The project follows a modular structure with the following main folders and file
 quickcommerce/
 ├── assets/              # Static resources, such as images or icons
 ├── src/                 # Application source code
+│   ├── app/             # Application screens and components
+|   ├── assets/          # Application assets
 │   ├── components/      # Reusable UI components
-│   ├── screens/         # Main screens for the application
 │   ├── services/        # API connection services (e.g., Firebase)
-│   ├── context/         # React contexts for global state
+│   ├── store/           # Redux store and slices
+│   ├── tamagui/         # Tamagui configuration
 │   └── utils/           # Utility functions
 ├── App.js               # Main entry file for the app
 └── package.json         # Dependency and script configuration
