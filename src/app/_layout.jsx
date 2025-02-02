@@ -9,7 +9,8 @@ import { TamaguiProvider, Theme } from '@tamagui/core';
 import tamaguiConfig from '../tamagui/tamagui.config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PortalProvider } from 'tamagui';
-
+import { Provider } from 'react-redux';
+import { store } from '@src/store';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -52,16 +53,17 @@ function RootLayoutNav() {
 
   return (
     <SafeAreaProvider>
-      <PortalProvider shouldAddRootHost>
-        <TamaguiProvider config={tamaguiConfig}>
-          <Theme name={colorScheme}>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-            </Stack>
-          </Theme>
-        </TamaguiProvider>
-      </PortalProvider>
+      <Provider store={store}>
+        <PortalProvider shouldAddRootHost>
+          <TamaguiProvider config={tamaguiConfig}>
+            <Theme name={colorScheme}>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              </Stack>
+            </Theme>
+          </TamaguiProvider>
+        </PortalProvider>
+      </Provider>
     </SafeAreaProvider>
   );
 }
