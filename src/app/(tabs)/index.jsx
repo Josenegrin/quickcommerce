@@ -1,35 +1,59 @@
-import { StyleSheet } from 'react-native';
-import { View, Text } from 'tamagui';
+import React, { useState, useCallback } from 'react';
+import { FlatList } from 'react-native';
+import { Stack, Text, XStack } from 'tamagui';
+import ProductCard from '../../components/ProductCard';
+import productsData from '../../../temporary-data.json';
+import categoriesData from '../../../temporary-data-categories.json';
+import { SearchBar } from '@components/SearchBar';
+import { ViewContainer } from '@src/components/ViewContainer';
+import { CategoryLabel } from '@src/components/CategoryLabel';
 
-export default function Page() {
+export default function HomeScreen() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const renderProduct = useCallback(
+    ({ item }) => <ProductCard product={item} />,
+    []
+  );
+
+  const renderCategory = useCallback(
+    ({ item }) => <CategoryLabel category={item} />,
+    []
+  );
+  const categoryKeyExtractor = useCallback((item) => item, []);
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Home</Text>
-        <Text style={styles.subtitle}>Tab home</Text>
-      </View>
-    </View>
+    <ViewContainer flex={1} gap={10} padding={10}>
+      <Stack>
+        <Stack padding="$4" space="$3">
+          <Text fontSize={24} fontWeight="bold">
+            Match Your Style
+          </Text>
+          <XStack space="$3" alignItems="center">
+            <SearchBar value={searchQuery} onChange={setSearchQuery} />
+          </XStack>
+          <XStack space="$2" marginTop="$2" marginVertical={10}>
+            <FlatList
+              data={categoriesData.categories}
+              renderItem={renderCategory}
+              keyExtractor={categoryKeyExtractor}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ gap: 10 }}
+            />
+          </XStack>
+        </Stack>
+
+        <FlatList
+          data={productsData.products}
+          renderItem={renderProduct}
+          keyExtractor={keyExtractor}
+          numColumns={2}
+          contentContainerStyle={{ padding: 1, gap: 10 }}
+          showsVerticalScrollIndicator={false}
+        />
+      </Stack>
+    </ViewContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: 'center',
-    maxWidth: 960,
-    marginHorizontal: 'auto',
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontSize: 36,
-    color: '#38434D',
-  },
-});
