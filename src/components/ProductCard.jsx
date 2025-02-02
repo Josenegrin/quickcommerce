@@ -3,10 +3,31 @@ import { Text, Image, Button, YStack, Card } from 'tamagui';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addToCart,
+  removeFromCart,
+  selectIsInCart,
+} from '@store/slices/cartSlice';
+import {
+  addToWishlist,
+  removeFromWishlist,
+  selectIsInWishlist,
+} from '@store/slices/wishlistSlice';
 
 const ProductCard = React.memo(({ product }) => {
+  const dispatch = useDispatch();
   const { push } = useRouter();
+  const isInCart = useSelector((state) => selectIsInCart(state, product.id));
   const handlePress = () => push(`/product/${product.id}`);
+  const handleAddToCart = () => dispatch(addToCart(product));
+  const handleAddToWishlist = () => dispatch(addToWishlist(product));
+  const handleRemoveFromWishlist = () =>
+    dispatch(removeFromWishlist(product.id));
+  const isInWishlist = useSelector((state) =>
+    selectIsInWishlist(state, product.id)
+  );
+  const handleRemoveFromCart = () => dispatch(removeFromCart(product.id));
 
   return (
     <Card
@@ -24,12 +45,21 @@ const ProductCard = React.memo(({ product }) => {
     >
       <Card.Header style={{ position: 'absolute', top: 0, right: 0 }}>
         <Button
+          onPress={
+            isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
+          }
           width={20}
           height={20}
           unstyled
-          onPress={() => {}}
           alignSelf="flex-start"
-          icon={<FontAwesome name="heart-o" size={16} color="#666" />}
+          icon={
+            <FontAwesome
+              name="heart-o"
+              size={16}
+              color={isInWishlist ? 'red' : '#666'}
+              fill={isInWishlist ? 'red' : '#666'}
+            />
+          }
         ></Button>
       </Card.Header>
       <Card.Background>
@@ -53,13 +83,14 @@ const ProductCard = React.memo(({ product }) => {
             iconAfter={
               <FontAwesome name="shopping-cart" size={14} color="white" />
             }
-            backgroundColor="#ff4d4f"
+            backgroundColor={isInCart ? 'gray' : '#ff4d4f'}
             size="$4"
             color="white"
             fontWeight="bold"
             fontSize={14}
+            onPress={isInCart ? handleRemoveFromCart : handleAddToCart}
           >
-            Add to Cart
+            {isInCart ? 'Remove from Cart' : 'Add to Cart'}
           </Button>
         </YStack>
       </Card.Footer>
