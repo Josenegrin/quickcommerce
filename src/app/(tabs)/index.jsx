@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { FlatList } from 'react-native';
-import { Stack, Text, XStack } from 'tamagui';
+import { Stack, XStack } from 'tamagui';
 import ProductCard from '../../components/ProductCard';
 import productsData from '../../../temporary-data.json';
 import categoriesData from '../../../temporary-data-categories.json';

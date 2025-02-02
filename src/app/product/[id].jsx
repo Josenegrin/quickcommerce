@@ -5,12 +5,15 @@ import { useLayoutEffect, useMemo } from 'react';
 import { ViewContainer } from '@components/ViewContainer';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
-
-export const screenOptions = {
-  headerTitle: 'Product details',
-};
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addToCart,
+  removeFromCart,
+  selectIsInCart,
+} from '@store/slices/cartSlice';
 
 const ProductScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const product = useMemo(
@@ -25,6 +28,10 @@ const ProductScreen = () => {
       headerBackTitleVisible: false,
     });
   }, [navigation]);
+
+  const handleAddToCart = () => dispatch(addToCart(product));
+  const handleRemoveFromCart = () => dispatch(removeFromCart(product.id));
+  const isInCart = useSelector((state) => selectIsInCart(state, product.id));
 
   return (
     <ScrollView flex={1}>
@@ -54,14 +61,17 @@ const ProductScreen = () => {
           iconAfter={
             <FontAwesome name="shopping-cart" size={14} color="white" />
           }
-          backgroundColor="#ff4d4f"
+          backgroundColor={isInCart ? 'gray' : '#ff4d4f'}
           color="white"
           fontWeight="bold"
           fontSize={14}
           alignSelf="center"
           marginTop={10}
+          onPress={() =>
+            isInCart ? handleRemoveFromCart() : handleAddToCart()
+          }
         >
-          Add to Cart
+          {isInCart ? 'Remove from cart' : 'Add to cart'}
         </Button>
       </ViewContainer>
     </ScrollView>
