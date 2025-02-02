@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { FlatList } from 'react-native';
 import { Stack, Text, XStack } from 'tamagui';
 import ProductCard from '../../components/ProductCard';
@@ -23,13 +23,20 @@ export default function HomeScreen() {
   const categoryKeyExtractor = useCallback((item) => item, []);
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery) {
+      return productsData.products;
+    }
+
+    return productsData.products.filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
   return (
     <ViewContainer flex={1} gap={10} padding={10}>
       <Stack>
         <Stack padding="$4" space="$3">
-          <Text fontSize={24} fontWeight="bold">
-            Match Your Style
-          </Text>
           <XStack space="$3" alignItems="center">
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
           </XStack>
@@ -46,7 +53,7 @@ export default function HomeScreen() {
         </Stack>
 
         <FlatList
-          data={productsData.products}
+          data={filteredProducts}
           renderItem={renderProduct}
           keyExtractor={keyExtractor}
           numColumns={2}

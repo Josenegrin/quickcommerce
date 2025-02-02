@@ -1,7 +1,12 @@
 import { FontAwesome } from '@expo/vector-icons';
+import { removeFromCart } from '@src/store/slices/cartSlice';
+import { useDispatch } from 'react-redux';
 import { Button, Image, Text, View } from 'tamagui';
 
-export const CartProductCard = ({ thumbnail, title, price }) => {
+export const CartProductCard = ({ thumbnail, title, price, id }) => {
+  const dispatch = useDispatch();
+  const handleRemoveFromCart = () => dispatch(removeFromCart(id));
+
   return (
     <View flexDirection="row" gap={10} width="100%">
       <View
@@ -29,7 +34,7 @@ export const CartProductCard = ({ thumbnail, title, price }) => {
         </Text>
       </View>
       <View marginRight={10}>
-        <Button unstyled>
+        <Button unstyled onPress={handleRemoveFromCart}>
           <FontAwesome name="trash" size={16} color="red" />
         </Button>
       </View>

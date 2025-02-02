@@ -1,17 +1,30 @@
 import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { Button, Image, ScrollView, Text, View } from 'tamagui';
 import ProductData from '../../../temporary-data.json';
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { ViewContainer } from '@components/ViewContainer';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
+
+export const screenOptions = {
+  headerTitle: 'Product details',
+};
 
 const ProductScreen = () => {
+  const navigation = useNavigation();
   const { id } = useLocalSearchParams();
-
   const product = useMemo(
     () => ProductData.products.find((p) => p.id === Number(id)),
     [id]
   );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Product details',
+      headerBackTitle: '',
+      headerBackTitleVisible: false,
+    });
+  }, [navigation]);
 
   return (
     <ScrollView flex={1}>

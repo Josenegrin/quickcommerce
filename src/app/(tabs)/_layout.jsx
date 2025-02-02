@@ -24,11 +24,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="categories"
+        name="wishlist"
         options={{
-          title: 'Categories',
+          title: 'Wishlist',
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={24} name="th-large" color={color} />
+            <FontAwesome size={24} name="heart" color={color} />
           ),
         }}
       />

@@ -14,6 +14,7 @@ module.exports = function (api) {
             '@screens': './src/screens',
             '@utils': './src/utils',
             '@services': './src/services',
+            '@store': './src/store',
           },
           extensions: ['.js', '.jsx', '.json'],
         },
@@ -33,8 +34,6 @@ module.exports = function (api) {
           disableExtraction: process.env.NODE_ENV === 'development',
         },
       ],
-      // 'expo-router/babel',
-      // NOTE: this is only necessary if you are using reanimated for animations
       'react-native-reanimated/plugin',
     ],
   };
