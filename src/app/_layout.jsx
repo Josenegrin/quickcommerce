@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from 'react-native';
 import { TamaguiProvider, Theme } from '@tamagui/core';
-import tamaguiConfig from '../tamagui/tamagui.config';
+import tamaguiConfig from '@src/tamagui/tamagui.config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PortalProvider } from 'tamagui';
 import { Provider } from 'react-redux';

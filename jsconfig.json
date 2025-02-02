@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
+            "@firebase/auth": ["./node_modules/firebase/auth/dist/index.cjs.js"],
             "@src/*": ["src/*"],
             "@components/*": ["src/components/*"],
             "@screens/*": ["src/screens/*"],

@@ -3,7 +3,7 @@ import { Button, Separator, Text, View } from 'tamagui';
 
 export const CartFooter = ({ products }) => {
   const totalPrice = useMemo(
-    () => products.reduce((acc, product) => acc + product.price, 0),
+    () => products.reduce((acc, product) => acc + product.price, 0).toFixed(2),
     [products]
   );
   return (

@@ -6,6 +6,8 @@ export const SearchBar = ({ value, onChange }) => {
       flex={1}
       value={value}
       onChangeText={onChange}
+      backgroundColor="white"
+      placeholderTextColor="gray"
       placeholder="Search"
     />
   );
